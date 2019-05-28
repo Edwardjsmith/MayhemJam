@@ -8,8 +8,6 @@ public class DecisionTreeAction : DecisionTreeNode
     Action action;    
     private DecisionTreeActionList m_action;
 
-    private DecisionTreeBlackboard m_blackboard;
-
     public DecisionTreeAction(string name, DecisionTreeBlackboard blackboard, Action action) : base(name, blackboard)
     {
         m_blackboard = blackboard;
