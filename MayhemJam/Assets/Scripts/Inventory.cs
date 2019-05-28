@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class Inventory : MonoBehaviour
 {
     const int bagSpace = 4;
     Dictionary<string, Sprite> items;
-    Sprite[] currentItems = new Sprite[bagSpace];
+    public Sprite[] currentItems = new Sprite[bagSpace];
+    public Image[] slots = new Image[bagSpace];
 
     Sprite defaultSprite;
 
