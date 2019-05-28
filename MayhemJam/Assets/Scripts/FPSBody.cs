@@ -4,7 +4,10 @@ using UnityEngine;
 public class FPSBody : MonoBehaviour {
     public delegate void SoundTrigger(Vector3 playerPos);
     public static event SoundTrigger playerSound;
+    public float jumpHeight = 7f;
+    public bool isGrounded;
 
+    private Rigidbody rb;
     public float movementSpeed = 10;
     CharacterController controller;
 
@@ -23,29 +26,39 @@ public class FPSBody : MonoBehaviour {
     public float max_speed = 10.0f;
 
     public float dead_space = 0.5f;
-
+    public float target_x;
+    public float target_y;
     public LayerMask rayLayer;
 
     // Use this for initialization
     public void Start() {
+        rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update() {
         if (Mathf.Abs(x_v) > drag) {
-            if (x_v > 0) {
+            if (x_v > 0.0f) {
                 x_v -= drag;
             } else {
                 x_v += drag;
             }
         } else {
-            x_v = 0;
+            x_v = 0.0f;
+        }
+        if (Mathf.Abs(y_v) > drag) {
+            if (y_v > 0.0f) {
+                y_v -= drag;
+            } else {
+                y_v += drag;
+            }
+        } else {
+            y_v = 0.0f;
         }
 
-
-        float target_x = Input.GetAxis("Horizontal") * max_speed;
-        float target_y = Input.GetAxis("Vertical") * max_speed;
+        target_x = Input.GetAxis("Horizontal") * max_speed;
+        target_y = Input.GetAxis("Vertical") * max_speed;
 
         if (target_x < x_v && Mathf.Abs(target_x) > dead_space) {
             x_v += movement_force;
@@ -61,8 +74,8 @@ public class FPSBody : MonoBehaviour {
                 y_v -= movement_force;
             }
         }
-        Vector3 forwardMovement = transform.forward * y_v;
-        Vector3 rightMovement = transform.right * x_v;
+        Vector3 forwardMovement = transform.forward * -y_v;
+        Vector3 rightMovement = transform.right * -x_v;
 
         controller.SimpleMove(forwardMovement + rightMovement);
         /*
@@ -74,6 +87,21 @@ public class FPSBody : MonoBehaviour {
 
            controller.SimpleMove(forwardMovement + rightMovement);
        */
+        if (isGrounded) {
+            if (Input.GetButtonDown("Jump")) {
+                rb.AddForce(Vector3.up * jumpHeight);
+            }
+        }
+    }
+    void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Ground") {
+            isGrounded = true;
+        }
     }
 
+    void OnCollisionExit(Collision other) {
+        if (other.gameObject.tag == "Ground") {
+            isGrounded = false;
+        }
+    }
 }
