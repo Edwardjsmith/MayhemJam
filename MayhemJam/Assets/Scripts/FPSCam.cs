@@ -29,7 +29,7 @@ public class FPSCam : MonoBehaviour
     void camRotation()
     {
         float mouseX = -Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = -Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
         xAxisClamp += mouseY;
 
