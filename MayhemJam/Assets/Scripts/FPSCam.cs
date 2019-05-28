@@ -50,11 +50,11 @@ public class FPSCam : MonoBehaviour
 
         if (bodyAttached)
         {
-            playerBody.Rotate(Vector3.up * mouseX);
+            playerBody.Rotate(Vector3.up * -mouseX);
         }
         else if(!bodyAttached)
         {
-            transform.Rotate(Vector3.up * mouseX);
+            transform.Rotate(Vector3.up * -mouseX);
         }
     }
 
