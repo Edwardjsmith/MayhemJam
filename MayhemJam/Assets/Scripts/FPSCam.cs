@@ -9,7 +9,7 @@ public class FPSCam : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //       Cursor.lockState = CursorLockMode.Locked;
     }
     // Use this for initialization
     public void Start()
