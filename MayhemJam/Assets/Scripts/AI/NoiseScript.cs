@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NoiseScript : MonoBehaviour {
 
-    private SphereCollider collider;
+    private SphereCollider m_collider;
 
     private void Start()
     {
-        collider = GetComponent<SphereCollider>();
+        m_collider = GetComponent<SphereCollider>();
     }
 
     void CreateNoise(float range)
@@ -18,9 +18,9 @@ public class NoiseScript : MonoBehaviour {
 
     private void Update()
     {
-        if(collider.radius > 0)
+        if(m_collider.radius > 0)
         {
-            collider.radius = 0;
+            m_collider.radius = 0;
         }
     }
 
